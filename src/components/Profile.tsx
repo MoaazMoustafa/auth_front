@@ -95,9 +95,7 @@ const Profile: React.FC = () => {
               <Typography variant="body1" gutterBottom>
                 <strong>Email:</strong> {profile.email}
               </Typography>
-              <Typography variant="body1" gutterBottom>
-                <strong>ID:</strong> {profile.id}
-              </Typography>
+              
             </Box>
           )}
           <Button
