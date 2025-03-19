@@ -25,17 +25,15 @@ const schema = yup.object().shape({
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
       'Please enter a valid email address'
     ),
-  password: yup
-    .string()
-    .required('Password is required'),
 });
 
 type FormData = yup.InferType<typeof schema>;
 
-const Login: React.FC = () => {
+const ForgetPassword: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [success, setSuccess] = React.useState(false);
 
   const {
     register,
@@ -49,13 +47,10 @@ const Login: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-      await authService.login({
-        email: data.email,
-        password: data.password,
-      });
-      navigate('/profile');
+      await authService.forgetPassword(data.email);
+      setSuccess(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed. Please try again.');
+      setError(err instanceof Error ? err.message : 'Failed to send reset password email');
     } finally {
       setLoading(false);
     }
@@ -82,11 +77,16 @@ const Login: React.FC = () => {
           }}
         >
           <Typography component="h1" variant="h5">
-            Sign in
+            Reset Password
           </Typography>
           {error && (
             <Alert severity="error" sx={{ mt: 2, width: '100%' }}>
               {error}
+            </Alert>
+          )}
+          {success && (
+            <Alert severity="success" sx={{ mt: 2, width: '100%' }}>
+              Password reset instructions have been sent to your email.
             </Alert>
           )}
           <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
@@ -99,51 +99,28 @@ const Login: React.FC = () => {
               type="email"
               autoComplete="email"
               autoFocus
-              disabled={loading}
+              disabled={loading || success}
               error={!!errors.email}
               helperText={errors.email?.message}
               {...register('email')}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="password"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-              disabled={loading}
-              error={!!errors.password}
-              helperText={errors.password?.message}
-              {...register('password')}
             />
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              disabled={loading}
+              disabled={loading || success}
             >
-              {loading ? <CircularProgress size={24} /> : 'Sign In'}
+              {loading ? <CircularProgress size={24} /> : 'Send Reset Instructions'}
             </Button>
-            <Box sx={{ textAlign: 'center', mb: 2 }}>
-              <Link
-                component="button"
-                variant="body2"
-                onClick={() => navigate('/forget-password')}
-                sx={{ pointerEvents: loading ? 'none' : 'auto' }}
-              >
-                Forgot password?
-              </Link>
-            </Box>
             <Box sx={{ textAlign: 'center' }}>
               <Link
                 component="button"
                 variant="body2"
-                onClick={() => navigate('/signup')}
+                onClick={() => navigate('/login')}
                 sx={{ pointerEvents: loading ? 'none' : 'auto' }}
               >
-                {"Don't have an account? Sign Up"}
+                Back to Login
               </Link>
             </Box>
           </Box>
@@ -153,4 +130,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login; 
+export default ForgetPassword; 

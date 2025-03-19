@@ -41,6 +41,11 @@ export interface UserProfile {
   email: string;
 }
 
+export interface ResetPasswordData {
+  password: string;
+  passwordConfirmation: string;
+}
+
 export const authService = {
   signup: async (data: SignupData) => {
     try {
@@ -81,5 +86,29 @@ export const authService = {
   },
   logout: () => {
     localStorage.removeItem('accessToken');
+  },
+  forgetPassword: async (email: string) => {
+    try {
+      const response = await api.post('/users/forget-password', { 
+        email
+      });
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.message || 'Failed to send reset password email');
+      }
+      throw error;
+    }
+  },
+  resetPassword: async (token: string, data: ResetPasswordData) => {
+    try {
+      const response = await api.post(`/users/reset-password/${token}`, data);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.message || 'Failed to reset password');
+      }
+      throw error;
+    }
   },
 }; 
