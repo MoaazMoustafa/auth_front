@@ -1,46 +1,106 @@
-# Getting Started with Create React App
+# Authentication Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern React application with authentication features built using Material-UI, React Router, and TypeScript. This application provides a complete authentication flow including login, signup, password reset, and profile management.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- 🔐 Complete Authentication Flow
+  - User Login
+  - User Registration
+  - Password Reset (Forget Password)
+  - Profile Management
+- 🎨 Modern UI with Material-UI
+- 📱 Responsive Design
+- ✅ Form Validation with Yup
+- 🔒 Secure Password Requirements
+- 🚀 TypeScript Support
+- 🛡️ Error Handling
+- 📝 Loading States
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Node.js (v14 or higher)
+- npm or yarn
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installation
 
-### `npm test`
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd auth_front
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
 
-### `npm run build`
+3. Start the development server:
+```bash
+npm start
+# or
+yarn start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The application will be available at `http://localhost:3000`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## API Endpoints
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The application communicates with the following backend endpoints:
 
-### `npm run eject`
+- `POST /users/login` - User login
+- `POST /users/signup` - User registration
+- `POST /users/forget-password` - Request password reset
+- `POST /users/reset-password/:token` - Reset password with token
+- `GET /users/profile` - Get user profile (protected route)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Features in Detail
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Login
+- Email and password validation
+- Error handling
+- Loading states
+- Remember me functionality
+- Redirect to profile after successful login
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Signup
+- Form validation for:
+  - Name (minimum 3 characters, letters and spaces only)
+  - Email (valid format)
+  - Password (minimum 8 characters, uppercase, lowercase, number, special character)
+  - Password confirmation
+- Real-time validation feedback
+- Error handling
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Password Reset
+- Two-step process:
+  1. Request reset link (ForgetPassword)
+  2. Set new password (ResetPassword)
+- Email validation
+- Secure password requirements
+- Token validation
+- Automatic redirects
 
-## Learn More
+### Profile
+- Protected route
+- Display user information
+- Logout functionality
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Security Features
+
+- Password validation requirements
+- Protected routes
+- Token-based authentication
+- Secure password reset flow
+- Form validation
+- Error handling
+
+## Acknowledgments
+
+- Material-UI for the component library
+- React Router for navigation
+- Yup for form validation
+- Axios for API requests
