@@ -129,8 +129,12 @@ const Login: React.FC = () => {
             <Box sx={{ textAlign: 'center', mb: 2 }}>
               <Link
                 component="button"
+                type="button"
                 variant="body2"
-                onClick={() => navigate('/forget-password')}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/forget-password');
+                }}
                 sx={{ pointerEvents: loading ? 'none' : 'auto' }}
               >
                 Forgot password?
@@ -139,8 +143,12 @@ const Login: React.FC = () => {
             <Box sx={{ textAlign: 'center' }}>
               <Link
                 component="button"
+                type="button"
                 variant="body2"
-                onClick={() => navigate('/signup')}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/signup');
+                }}
                 sx={{ pointerEvents: loading ? 'none' : 'auto' }}
               >
                 {"Don't have an account? Sign Up"}
